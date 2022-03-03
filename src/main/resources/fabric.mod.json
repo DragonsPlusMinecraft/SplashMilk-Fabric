@@ -1,29 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "splash_milk",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Splash Milk",
+  "description": "Milk splash potion should exists.",
   "authors": [
-    "Me!"
+    "MarbleGateKeeper"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/the-splash-milk",
+    "sources": "https://github.com/MarbleGateKeeper/SplashMilk-Fabric"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "WTFPL",
+  "icon": "assets/splash_milk/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "love.marblegate.splashmilk.SplashMilk"
+    ],
+    "client": [
+      "love.marblegate.splashmilk.ClientEntry"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "splash_milk.mixins.json"
   ],
 
   "depends": {

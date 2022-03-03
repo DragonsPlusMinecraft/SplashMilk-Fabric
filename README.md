@@ -1,9 +1,5 @@
-# Fabric Example Mod
+![Cover](ghassets/Github%20Social%20Preview.png)
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+<h2 align="center">Useful Link</h2>
+    
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/the-splash-milk">CurseForge</a> | <a href="https://www.mcmod.cn/class/5402.html">MCMOD.CN</a></p>
