@@ -1,20 +1,18 @@
 package love.marblegate.splashmilk.item;
 
-import love.marblegate.splashmilk.entity.MilkBottleEntity;
-import love.marblegate.splashmilk.registry.ItemRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public class MilkBottle extends Item {
-    public MilkBottle() {super(new FabricItemSettings().group(ItemGroup.BREWING));}
+    public MilkBottle() {
+        super(new FabricItemSettings().group(ItemGroup.BREWING));
+    }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -23,13 +21,13 @@ public class MilkBottle extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if(!world.isClient())
+        if (!world.isClient())
             user.clearStatusEffects();
-        if(user instanceof PlayerEntity player){
+        if (user instanceof PlayerEntity player) {
             if (!player.getAbilities().creativeMode) {
                 stack.decrement(1);
             }
-            if(stack.isEmpty()){
+            if (stack.isEmpty()) {
                 return new ItemStack(Items.GLASS_BOTTLE);
             } else {
                 if (!player.getAbilities().creativeMode) {

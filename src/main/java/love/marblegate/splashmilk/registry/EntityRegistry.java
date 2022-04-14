@@ -14,7 +14,7 @@ public class EntityRegistry {
     public static EntityType<MIlkAreaEffectCloudEntity> MILK_AREA_EFFECT_CLOUD;
     public static EntityType<MilkBottleEntity> MILK_BOTTLE;
 
-    public static void ini(){
+    public static void ini() {
         MILK_AREA_EFFECT_CLOUD = Registry.register(Registry.ENTITY_TYPE, new Identifier(SplashMilk.MOD_ID, "milk_area_effect_cloud"),
                 FabricEntityTypeBuilder.<MIlkAreaEffectCloudEntity>create(SpawnGroup.MISC, MIlkAreaEffectCloudEntity::new)
                         .dimensions(EntityDimensions.fixed(6.0f, 0.5f)).fireImmune().trackRangeBlocks(10).build());

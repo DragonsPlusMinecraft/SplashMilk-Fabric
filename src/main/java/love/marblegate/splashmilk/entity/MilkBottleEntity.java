@@ -10,14 +10,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -71,7 +69,7 @@ public class MilkBottleEntity extends ThrownItemEntity implements FlyingItemEnti
             if (isLingering()) {
                 makeAreaOfEffectCloud();
             } else {
-                applySplash(hitResult.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) hitResult).getEntity() : null);
+                applySplash();
             }
             // 2007 see PotionEntity & WorldRenderer, 16253176 see PotionUtils#getColor
             world.syncWorldEvent(2007, this.getBlockPos(), 16777215);
@@ -93,7 +91,7 @@ public class MilkBottleEntity extends ThrownItemEntity implements FlyingItemEnti
 
     }
 
-    private void applySplash(Entity entity) {
+    private void applySplash() {
         Box box = getBoundingBox().expand(4.0D, 2.0D, 4.0D);
         List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, box);
         if (!list.isEmpty()) {
@@ -128,9 +126,9 @@ public class MilkBottleEntity extends ThrownItemEntity implements FlyingItemEnti
         if (blockState.isIn(BlockTags.FIRE)) {
             world.removeBlock(blockPos, false);
         } else if (AbstractCandleBlock.isLitCandle(blockState)) {
-            AbstractCandleBlock.extinguish((PlayerEntity) null, blockState, this.world, blockPos);
+            AbstractCandleBlock.extinguish(null, blockState, this.world, blockPos);
         } else if (CampfireBlock.isLitCampfire(blockState)) {
-            world.syncWorldEvent((PlayerEntity) null, 1009, blockPos, 0);
+            world.syncWorldEvent(null, 1009, blockPos, 0);
             CampfireBlock.extinguish(null, world, blockPos, blockState);
             world.setBlockState(blockPos, blockState.with(CampfireBlock.LIT, false));
         }

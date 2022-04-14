@@ -1,6 +1,7 @@
 package love.marblegate.splashmilk.item;
 
 import love.marblegate.splashmilk.entity.MilkBottleEntity;
+import love.marblegate.splashmilk.registry.ItemRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -11,16 +12,17 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import love.marblegate.splashmilk.registry.ItemRegistry;
 
 public class ThrowableMilkBottle extends Item {
-    public ThrowableMilkBottle() {super(new FabricItemSettings().group(ItemGroup.BREWING));}
+    public ThrowableMilkBottle() {
+        super(new FabricItemSettings().group(ItemGroup.BREWING));
+    }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemstack = user.getStackInHand(hand);
         boolean isLingering = itemstack.getItem().equals(ItemRegistry.LINGERING_MILK_BOTTLE);
-        world.playSound((PlayerEntity) null, user.getX(), user.getY(), user.getZ(), isLingering ? SoundEvents.ENTITY_LINGERING_POTION_THROW : SoundEvents.ENTITY_SPLASH_POTION_THROW, SoundCategory.NEUTRAL, 0.5F, (float) (0.4F / (Math.random() * 0.4F + 0.8F)));
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), isLingering ? SoundEvents.ENTITY_LINGERING_POTION_THROW : SoundEvents.ENTITY_SPLASH_POTION_THROW, SoundCategory.NEUTRAL, 0.5F, (float) (0.4F / (Math.random() * 0.4F + 0.8F)));
 
         if (!world.isClient()) {
             MilkBottleEntity milkBottleEntity = new MilkBottleEntity(world, user);

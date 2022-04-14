@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinIngredientSlot {
     @Inject(method = "canInsert(Lnet/minecraft/item/ItemStack;)Z", at = @At("HEAD"), cancellable = true)
     public void injected(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if(stack.isOf(Items.MILK_BUCKET)) cir.setReturnValue(true);
+        if (stack.isOf(Items.MILK_BUCKET)) cir.setReturnValue(true);
     }
 }

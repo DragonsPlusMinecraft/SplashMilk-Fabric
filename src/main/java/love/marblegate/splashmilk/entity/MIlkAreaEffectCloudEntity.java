@@ -17,7 +17,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -92,100 +91,99 @@ public class MIlkAreaEffectCloudEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        boolean flag = isWaiting();
-        float f = getRadius();
+        float radius = getRadius();
         if (world.isClient()) {
-            if (flag) {
-                if (random.nextBoolean()) {
-                    for (int i = 0; i < 2; ++i) {
-                        float f1 = random.nextFloat() * ((float) Math.PI * 2F);
-                        float f2 = MathHelper.sqrt(random.nextFloat()) * 0.2F;
-                        float f3 = MathHelper.cos(f1) * f2;
-                        float f4 = MathHelper.sin(f1) * f2;
-                        world.addImportantParticle(PARTICLE, getX() + (double) f3, getY(), getZ() + (double) f4, 0.98, 0.99, 1);
-                    }
-                }
-            } else {
-                float f5 = (float) Math.PI * f * f;
-                for (int k1 = 0; (float) k1 < f5; ++k1) {
-                    float f6 = random.nextFloat() * ((float) Math.PI * 2F);
-                    float f7 = MathHelper.sqrt(random.nextFloat()) * f;
-                    float f8 = MathHelper.cos(f6) * f7;
-                    float f9 = MathHelper.sin(f6) * f7;
-                    world.addImportantParticle(PARTICLE, getX() + (double) f8, getY(), getZ() + (double) f9, 0.98, 0.99, 1);
-                }
-            }
+            generateParticle(radius);
         } else {
-            if (age >= waitTime + duration) {
+            handleLifecycle(radius);
+
+        }
+
+    }
+
+    private void handleLifecycle(float radius) {
+        boolean flag = isWaiting();
+        if (age >= waitTime + duration) {
+            remove(RemovalReason.DISCARDED);
+            return;
+        }
+        boolean flag1 = age < waitTime;
+        if (flag != flag1) {
+            setWaiting(flag1);
+        }
+
+        if (flag1) {
+            return;
+        }
+
+        if (radiusPerTick != 0.0F) {
+            radius += radiusPerTick;
+            if (radius < 0.5F) {
                 remove(RemovalReason.DISCARDED);
                 return;
             }
 
-            boolean flag1 = age < waitTime;
-            if (flag != flag1) {
-                setWaiting(flag1);
-            }
+            setRadius(radius);
+        }
 
-            if (flag1) {
-                return;
-            }
+        if (age % 5 == 0)
+            findEntityAndApply(radius);
+    }
 
-            if (radiusPerTick != 0.0F) {
-                f += radiusPerTick;
-                if (f < 0.5F) {
-                    remove(RemovalReason.DISCARDED);
-                    return;
+    private void generateParticle(float radius) {
+        if (isWaiting()) {
+            if (random.nextBoolean()) {
+                for (int i = 0; i < 2; ++i) {
+                    float f1 = random.nextFloat() * ((float) Math.PI * 2F);
+                    float f2 = MathHelper.sqrt(random.nextFloat()) * 0.2F;
+                    float f3 = MathHelper.cos(f1) * f2;
+                    float f4 = MathHelper.sin(f1) * f2;
+                    world.addImportantParticle(PARTICLE, getX() + (double) f3, getY(), getZ() + (double) f4, 0.98, 0.99, 1);
                 }
-
-                setRadius(f);
             }
+        } else {
+            float f5 = (float) Math.PI * radius * radius;
+            for (int k1 = 0; (float) k1 < f5; ++k1) {
+                float f6 = random.nextFloat() * ((float) Math.PI * 2F);
+                float f7 = MathHelper.sqrt(random.nextFloat()) * radius;
+                float f8 = MathHelper.cos(f6) * f7;
+                float f9 = MathHelper.sin(f6) * f7;
+                world.addImportantParticle(PARTICLE, getX() + (double) f8, getY(), getZ() + (double) f9, 0.98, 0.99, 1);
+            }
+        }
+    }
 
-            if (age % 5 == 0) {
-                Iterator<Map.Entry<Entity, Integer>> iterator = victims.entrySet().iterator();
-
-                while (iterator.hasNext()) {
-                    Map.Entry<Entity, Integer> entry = iterator.next();
-                    if (age >= entry.getValue()) {
-                        iterator.remove();
-                    }
-                }
-
-                List<LivingEntity> list1 = world.getNonSpectatingEntities(LivingEntity.class, getBoundingBox());
-                if (!list1.isEmpty()) {
-                    for (LivingEntity livingentity : list1) {
-                        if (!victims.containsKey(livingentity) && livingentity.isAffectedBySplashPotions()) {
-                            double d0 = livingentity.getX() - getX();
-                            double d1 = livingentity.getZ() - getZ();
-                            double d2 = d0 * d0 + d1 * d1;
-                            if (d2 <= (double) (f * f)) {
-                                victims.put(livingentity, age + reapplicationDelay);
-
-                                livingentity.clearStatusEffects();
-
-                                if (radiusOnUse != 0.0F) {
-                                    f += radiusOnUse;
-                                    if (f < 0.5F) {
-                                        remove(RemovalReason.DISCARDED);
-                                        return;
-                                    }
-
-                                    setRadius(f);
-                                }
-
-                                if (durationOnUse != 0) {
-                                    duration += durationOnUse;
-                                    if (duration <= 0) {
-                                        remove(RemovalReason.DISCARDED);
-                                        return;
-                                    }
-                                }
+    private void findEntityAndApply(float radius) {
+        victims.entrySet().removeIf(entry -> age >= entry.getValue());
+        List<LivingEntity> list1 = world.getNonSpectatingEntities(LivingEntity.class, getBoundingBox());
+        if (!list1.isEmpty()) {
+            for (LivingEntity livingentity : list1) {
+                if (!victims.containsKey(livingentity) && livingentity.isAffectedBySplashPotions()) {
+                    double d0 = livingentity.getX() - getX();
+                    double d1 = livingentity.getZ() - getZ();
+                    double d2 = d0 * d0 + d1 * d1;
+                    if (d2 <= (double) (radius * radius)) {
+                        victims.put(livingentity, age + reapplicationDelay);
+                        livingentity.clearStatusEffects();
+                        if (radiusOnUse != 0.0F) {
+                            radius += radiusOnUse;
+                            if (radius < 0.5F) {
+                                remove(RemovalReason.DISCARDED);
+                                return;
+                            }
+                            setRadius(radius);
+                        }
+                        if (durationOnUse != 0) {
+                            duration += durationOnUse;
+                            if (duration <= 0) {
+                                remove(RemovalReason.DISCARDED);
+                                return;
                             }
                         }
                     }
                 }
             }
         }
-
     }
 
     @Override

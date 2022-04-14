@@ -7,7 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ThrowablePotionItem;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,21 +26,21 @@ public class MixinBrewingStandBlockEntity {
         if (itemStack.isOf(Items.MILK_BUCKET)) {
             for (int i = 0; i < 3; ++i) {
                 ItemStack itemStack2 = slots.get(i);
-                if(qualifiedWaterBottle(itemStack2))
+                if (qualifiedWaterBottle(itemStack2))
                     cir.setReturnValue(true);
             }
         }
         if (itemStack.isOf(Items.GUNPOWDER)) {
             for (int i = 0; i < 3; ++i) {
                 ItemStack itemStack2 = slots.get(i);
-                if(itemStack2.isOf(ItemRegistry.MILK_BOTTLE))
+                if (itemStack2.isOf(ItemRegistry.MILK_BOTTLE))
                     cir.setReturnValue(true);
             }
         }
         if (itemStack.isOf(Items.DRAGON_BREATH)) {
             for (int i = 0; i < 3; ++i) {
                 ItemStack itemStack2 = slots.get(i);
-                if(itemStack2.isOf(ItemRegistry.SPLASH_MILK_BOTTLE))
+                if (itemStack2.isOf(ItemRegistry.SPLASH_MILK_BOTTLE))
                     cir.setReturnValue(true);
             }
         }
@@ -49,11 +49,11 @@ public class MixinBrewingStandBlockEntity {
     @Inject(method = "craft(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/collection/DefaultedList;)V", at = @At("HEAD"), cancellable = true)
     private static void injected(World world, BlockPos pos, DefaultedList<ItemStack> slots, CallbackInfo ci) {
         ItemStack itemStack = slots.get(3);
-        if(itemStack.isOf(Items.MILK_BUCKET)){
-            for(int i = 0; i < 3; ++i) {
-                if(qualifiedWaterBottle(slots.get(i))){
-                    ItemStack brewed = slots.get(i).isOf(Items.LINGERING_POTION)?
-                            ItemRegistry.LINGERING_MILK_BOTTLE.getDefaultStack():
+        if (itemStack.isOf(Items.MILK_BUCKET)) {
+            for (int i = 0; i < 3; ++i) {
+                if (qualifiedWaterBottle(slots.get(i))) {
+                    ItemStack brewed = slots.get(i).isOf(Items.LINGERING_POTION) ?
+                            ItemRegistry.LINGERING_MILK_BOTTLE.getDefaultStack() :
                             ItemRegistry.SPLASH_MILK_BOTTLE.getDefaultStack();
                     slots.set(i, brewed);
                 }
@@ -63,35 +63,34 @@ public class MixinBrewingStandBlockEntity {
             ci.cancel();
         }
 
-        if(itemStack.isOf(Items.GUNPOWDER)){
-            for(int i = 0; i < 3; ++i) {
-                if(slots.get(i).isOf(ItemRegistry.MILK_BOTTLE))
+        if (itemStack.isOf(Items.GUNPOWDER)) {
+            for (int i = 0; i < 3; ++i) {
+                if (slots.get(i).isOf(ItemRegistry.MILK_BOTTLE))
                     slots.set(i, ItemRegistry.SPLASH_MILK_BOTTLE.getDefaultStack());
             }
         }
 
-        if(itemStack.isOf(Items.DRAGON_BREATH)){
-            for(int i = 0; i < 3; ++i) {
-                if(slots.get(i).isOf(ItemRegistry.SPLASH_MILK_BOTTLE))
+        if (itemStack.isOf(Items.DRAGON_BREATH)) {
+            for (int i = 0; i < 3; ++i) {
+                if (slots.get(i).isOf(ItemRegistry.SPLASH_MILK_BOTTLE))
                     slots.set(i, ItemRegistry.LINGERING_MILK_BOTTLE.getDefaultStack());
             }
         }
     }
 
-    @Inject(method = "isValid(ILnet/minecraft/item/ItemStack;)Z", at = @At("HEAD"), cancellable = true)
-    public void injected(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> cir){
-        if(slot<3){
-            if(stack.isOf(ItemRegistry.MILK_BOTTLE) || stack.isOf(ItemRegistry.SPLASH_MILK_BOTTLE))
-                cir.setReturnValue(true);
-        }
-    }
-
-    private static boolean qualifiedWaterBottle(ItemStack itemStack){
-        if(itemStack.getItem() instanceof ThrowablePotionItem){
+    private static boolean qualifiedWaterBottle(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ThrowablePotionItem) {
             Potion potion = PotionUtil.getPotion(itemStack);
             return potion.equals(Potions.WATER) || potion.equals(Potions.MUNDANE) || potion.equals(Potions.THICK) || potion.equals(Potions.AWKWARD);
         }
         return false;
+    }
+
+    @Inject(method = "isValid(ILnet/minecraft/item/ItemStack;)Z", at = @At("HEAD"), cancellable = true)
+    public void injected(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        if (slot < 3 && (stack.isOf(ItemRegistry.MILK_BOTTLE) || stack.isOf(ItemRegistry.SPLASH_MILK_BOTTLE))) {
+            cir.setReturnValue(true);
+        }
     }
 
 }
