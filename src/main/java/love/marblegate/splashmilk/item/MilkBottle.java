@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class MilkBottle extends Item {
     public MilkBottle() {
-        super(new FabricItemSettings().group(ItemGroup.BREWING));
+        super(new FabricItemSettings());
     }
 
     @Override

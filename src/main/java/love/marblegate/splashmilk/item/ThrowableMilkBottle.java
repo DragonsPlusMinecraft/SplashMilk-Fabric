@@ -5,7 +5,6 @@ import love.marblegate.splashmilk.registry.ItemRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -15,7 +14,7 @@ import net.minecraft.world.World;
 
 public class ThrowableMilkBottle extends Item {
     public ThrowableMilkBottle() {
-        super(new FabricItemSettings().group(ItemGroup.BREWING));
+        super(new FabricItemSettings());
     }
 
     @Override
