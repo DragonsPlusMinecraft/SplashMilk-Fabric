@@ -1,7 +1,8 @@
-package love.marblegate.splashmilk.item;
+package plus.dragons.splashmilk.item;
 
-import love.marblegate.splashmilk.entity.MilkBottleEntity;
-import love.marblegate.splashmilk.registry.ItemRegistry;
+import net.minecraft.item.Items;
+import plus.dragons.splashmilk.entity.MilkBottleEntity;
+import plus.dragons.splashmilk.registry.ItemRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 public class ThrowableMilkBottle extends Item {
     public ThrowableMilkBottle() {
-        super(new FabricItemSettings());
+        super(new FabricItemSettings().recipeRemainder(Items.GLASS_BOTTLE));
     }
 
     @Override

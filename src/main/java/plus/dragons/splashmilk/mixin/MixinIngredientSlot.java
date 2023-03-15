@@ -1,4 +1,4 @@
-package love.marblegate.splashmilk.mixin;
+package plus.dragons.splashmilk.mixin;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;

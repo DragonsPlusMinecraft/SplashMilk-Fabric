@@ -1,6 +1,6 @@
-package love.marblegate.splashmilk.mixin;
+package plus.dragons.splashmilk.mixin;
 
-import love.marblegate.splashmilk.registry.ItemRegistry;
+import plus.dragons.splashmilk.registry.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

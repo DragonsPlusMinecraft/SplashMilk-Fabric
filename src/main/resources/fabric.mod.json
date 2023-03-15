@@ -19,10 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "love.marblegate.splashmilk.SplashMilk"
+      "plus.dragons.splashmilk.SplashMilk"
     ],
     "client": [
-      "love.marblegate.splashmilk.ClientEntry"
+      "plus.dragons.splashmilk.ClientEntry"
     ]
   },
   "mixins": [

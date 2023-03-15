@@ -1,7 +1,7 @@
-package love.marblegate.splashmilk;
+package plus.dragons.splashmilk;
 
-import love.marblegate.splashmilk.registry.ParticleFactoryRegistry;
-import love.marblegate.splashmilk.registry.RendererRegistry;
+import plus.dragons.splashmilk.registry.ParticleFactoryRegistry;
+import plus.dragons.splashmilk.registry.RendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
 
 public class ClientEntry implements ClientModInitializer {

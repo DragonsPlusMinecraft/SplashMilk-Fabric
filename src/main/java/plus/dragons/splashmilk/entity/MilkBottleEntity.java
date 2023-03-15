@@ -1,7 +1,8 @@
-package love.marblegate.splashmilk.entity;
+package plus.dragons.splashmilk.entity;
 
-import love.marblegate.splashmilk.registry.EntityRegistry;
-import love.marblegate.splashmilk.registry.ItemRegistry;
+import net.minecraft.network.packet.Packet;
+import plus.dragons.splashmilk.registry.EntityRegistry;
+import plus.dragons.splashmilk.registry.ItemRegistry;
 import net.minecraft.block.AbstractCandleBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
@@ -12,7 +13,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.registry.tag.BlockTags;
@@ -85,7 +85,7 @@ public class MilkBottleEntity extends ThrownItemEntity implements FlyingItemEnti
             for (LivingEntity livingentity : list) {
                 double d0 = squaredDistanceTo(livingentity);
                 if (d0 < 16.0D && livingentity.hurtByWater()) {
-                    livingentity.damage(DamageSource.magic(livingentity, getOwner()), 1.0F);
+                    livingentity.damage(getDamageSources().indirectMagic(this, getOwner()), 1.0F);
                 }
             }
         }

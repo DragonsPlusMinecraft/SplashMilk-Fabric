@@ -1,15 +1,16 @@
-package love.marblegate.splashmilk.entity;
+package plus.dragons.splashmilk.entity;
 
 import com.google.common.collect.Maps;
-import love.marblegate.splashmilk.registry.EntityRegistry;
-import love.marblegate.splashmilk.registry.ParticleTypeRegistry;
+import net.minecraft.network.packet.Packet;
+import org.jetbrains.annotations.Nullable;
+import plus.dragons.splashmilk.registry.EntityRegistry;
+import plus.dragons.splashmilk.registry.ParticleTypeRegistry;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleEffect;
@@ -17,7 +18,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

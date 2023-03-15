@@ -1,4 +1,4 @@
-package love.marblegate.splashmilk.registry;
+package plus.dragons.splashmilk.registry;
 
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;

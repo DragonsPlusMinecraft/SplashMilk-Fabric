@@ -1,6 +1,6 @@
-package love.marblegate.splashmilk.mixin;
+package plus.dragons.splashmilk.mixin;
 
-import love.marblegate.splashmilk.registry.ItemRegistry;
+import plus.dragons.splashmilk.registry.ItemRegistry;
 import net.minecraft.block.entity.BrewingStandBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;

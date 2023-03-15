@@ -1,6 +1,6 @@
-package love.marblegate.splashmilk.registry;
+package plus.dragons.splashmilk.registry;
 
-import love.marblegate.splashmilk.SplashMilk;
+import plus.dragons.splashmilk.SplashMilk;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.registry.Registries;

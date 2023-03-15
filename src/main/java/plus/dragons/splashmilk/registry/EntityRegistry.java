@@ -1,8 +1,8 @@
-package love.marblegate.splashmilk.registry;
+package plus.dragons.splashmilk.registry;
 
-import love.marblegate.splashmilk.SplashMilk;
-import love.marblegate.splashmilk.entity.MIlkAreaEffectCloudEntity;
-import love.marblegate.splashmilk.entity.MilkBottleEntity;
+import plus.dragons.splashmilk.SplashMilk;
+import plus.dragons.splashmilk.entity.MIlkAreaEffectCloudEntity;
+import plus.dragons.splashmilk.entity.MilkBottleEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;

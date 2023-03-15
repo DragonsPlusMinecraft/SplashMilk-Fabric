@@ -1,4 +1,4 @@
-package love.marblegate.splashmilk.item;
+package plus.dragons.splashmilk.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class MilkBottle extends Item {
     public MilkBottle() {
-        super(new FabricItemSettings());
+        super(new FabricItemSettings().recipeRemainder(Items.GLASS_BOTTLE));
     }
 
     @Override
